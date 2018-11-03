@@ -12,7 +12,7 @@ $errors[] = "";
                 case 'email': $f = 'E-mail'; break;
             }
             $errors[] = 'Polje <b>' . $f . '</b> mora biti upisano.';
-            $hasErrors = true;
+        
         }else{
             $field = trim($_POST[$field]);
         }
@@ -37,32 +37,32 @@ $email = $_POST['email'];
 if(isset($email)){
     if(User:: email_exists($email)){
         $errors[] = 'Već postoji korisnik sa ovom E-mail adresom.';
-        $hasErrors = true;
+
     }
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
         $errors[] = 'Unesite validnu E-mail adresu.';
-        $hasErrors = true;
+
     }
 }
     if(isset($password) && isset($passwordA)){
         if(strlen($password) < 3) {
             $errors[] = 'Lozinka mora imati najmanje 6 karaktera.';
-            $hasErrors = true;
+
         }
         if($password !== $passwordA) {
             $errors[] = 'Lozinke se ne poklapaju';
-            $hasErrors = true;
+
         }
     }
 
     
- //  if($errors){
+   if($errors){
         if(User::register_new_user($name, $email, $password)){
 
             header('Location: index.php');
         }else{
             $errors[] = 'Došlo je do greške prilikom registracije. Obratite se tehničkoj podršci.';
-     //   }
+        }
     }
 if($errors){
     ?>
